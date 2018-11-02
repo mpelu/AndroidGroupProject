@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Android Group Project</string>
+    <string name="movieHint">Enter a movie title</string>
+    <string name="movieSearch">Search</string>
+
 </resources>
