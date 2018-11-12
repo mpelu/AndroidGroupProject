@@ -30,5 +30,13 @@
         android:layout_below="@id/movieEdit"
         />
 
+    <ProgressBar
+        android:id="@+id/movieProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible"
+        style="?android:attr/progressBarStyleHorizontal"
+        />
 
 </RelativeLayout>

@@ -1,7 +1,10 @@
 package com.example.mpelu.androidgroupproject;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
@@ -10,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -22,6 +26,7 @@ import java.net.URL;
 
 public class Movies extends Activity {
     public static final String ACTIVITY_NAME = "Movies";
+    Context ctx = this;
     public SQLiteDatabase db;
     static final int VERSION_NUM = 2;
     static final String DATABASE_NAME = "FavoriteMovies";
@@ -38,20 +43,36 @@ public class Movies extends Activity {
 
 
 
-        final EditText et = findViewById(R.id.movieEdit);
-        final Button b1 = findViewById(R.id.movieButton);
-        final ListView lv = findViewById(R.id.movieList);
+        final EditText searchTerm = findViewById(R.id.movieEdit);
+        final Button search = findViewById(R.id.movieButton);
+        final ListView movieList = findViewById(R.id.movieList);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+        builder.setMessage("This is the movie activity")
+                .setTitle("Movie")
+                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent result = new Intent();
+                        result.putExtra("Response", "My information");
+                        setResult(42, result);
+                        finish();
+                    }
+                });
 
 
-        b1.setOnClickListener(new View.OnClickListener(){
+        search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
 
+                Toast toast = Toast.makeText(ctx, "button clicked", Toast.LENGTH_LONG);
 
-                MyHttpQuery query = new MyHttpQuery();
-                query.execute("one", "two");
+//                MyHttpQuery query = new MyHttpQuery();
+//                query.execute("one", "two");
             }
         });
+
+//        Snackbar.make(search, "string to show", Snackbar.LENGTH_LONG.show());
     }
 
     @Override
