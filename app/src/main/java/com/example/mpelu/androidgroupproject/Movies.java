@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -43,6 +44,7 @@ public class Movies extends Activity {
 
 
 
+
         final EditText searchTerm = findViewById(R.id.movieEdit);
         final Button search = findViewById(R.id.movieButton);
         final ListView movieList = findViewById(R.id.movieList);
@@ -65,14 +67,16 @@ public class Movies extends Activity {
             @Override
             public void onClick(View v){
 
+
                 Toast toast = Toast.makeText(ctx, "button clicked", Toast.LENGTH_LONG);
 
-//                MyHttpQuery query = new MyHttpQuery();
-//                query.execute("one", "two");
+                MyHttpQuery query = new MyHttpQuery();
+                query.execute("one", "two");
             }
         });
 
-//        Snackbar.make(search, "string to show", Snackbar.LENGTH_LONG.show());
+        Snackbar snack = Snackbar.make(search, "string to show", Snackbar.LENGTH_LONG);
+        snack.show();
     }
 
     @Override
