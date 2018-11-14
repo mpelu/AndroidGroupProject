@@ -1,7 +1,10 @@
 package com.example.mpelu.androidgroupproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends Activity {
 
@@ -9,5 +12,11 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button ocbtn = findViewById(R.id.ocStartBtn);
+        ocbtn.setOnClickListener((View v) -> {
+            Intent intent = new Intent(MainActivity.this, OcTranspo.class);
+            startActivityForResult(intent, 50);
+        });
     }
 }
