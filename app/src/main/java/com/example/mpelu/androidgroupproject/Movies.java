@@ -50,33 +50,36 @@ public class Movies extends Activity {
         final ListView movieList = findViewById(R.id.movieList);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-        builder.setMessage("This is the movie activity")
-                .setTitle("Movie")
-                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.movie_dialog)
+                .setTitle(R.string.movie_dialog_title)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Intent result = new Intent();
-                        result.putExtra("Response", "My information");
-                        setResult(42, result);
-                        finish();
+
                     }
-                });
+                 })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+
+                    }
+                })
+                .show();
 
 
         search.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-
-
                 Toast toast = Toast.makeText(ctx, "button clicked", Toast.LENGTH_LONG);
+                toast.show();
 
                 MyHttpQuery query = new MyHttpQuery();
                 query.execute("one", "two");
             }
         });
 
-        Snackbar snack = Snackbar.make(search, "string to show", Snackbar.LENGTH_LONG);
-        snack.show();
+//        Snackbar snack = Snackbar.make(search, R.string.movie_snackbar, Snackbar.LENGTH_LONG);
+//        snack.show(); //above line throws exception
     }
 
     @Override
