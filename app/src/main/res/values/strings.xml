@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Android Group Project</string>
+    <string name="movieHint">Enter a movie title</string>
+    <string name="movieSearch">Search</string>
+    <string name="goToMovie">Go to Movies</string>
+    <string name="movie_dialog">Movie info</string>
+    <string name="movie_dialog_title">Movie Activity</string>
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="movie_snackbar">This is a snackbar</string>
+
 </resources>
