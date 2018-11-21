@@ -32,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Button"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/flOC"/>
 
     <EditText
         android:id="@+id/etOC"
@@ -41,6 +42,13 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Name"
-        android:layout_above="@id/pbOC"/>
+        android:layout_above="@id/pbOC"
+        android:layout_toLeftOf="@id/flOC"/>
+
+    <FrameLayout android:id="@+id/flOC"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@id/lvOC"/>
 
 </RelativeLayout>
