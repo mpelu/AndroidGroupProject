@@ -1,42 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Movies">
-
-    <Button
-        android:id="@+id/movieButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:text="@string/movieSearch"
-        />
-
-    <EditText
-        android:id="@+id/movieEdit"
+    tools:context=".Movies"
+    android:orientation="vertical">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/movieButton"
-        android:hint="@string/movieHint"
-        />
+        app:menu="@menu/movie_nav"
+    />
 
     <ListView
         android:id="@+id/movieList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/movieEdit"
         />
 
     <ProgressBar
         android:id="@+id/movieProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:visibility="visible"
         style="?android:attr/progressBarStyleHorizontal"
         />
 
-</RelativeLayout>
+</LinearLayout>

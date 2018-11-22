@@ -8,5 +8,9 @@
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
     <string name="movie_snackbar">This is a snackbar</string>
+    <string name="search_text_button">this is some text</string>
+    <string name="aboutMovies">About</string>
+    <string name="searchMovies">Search</string>
+    <string name="movieData">Movie data</string>
 
 </resources>

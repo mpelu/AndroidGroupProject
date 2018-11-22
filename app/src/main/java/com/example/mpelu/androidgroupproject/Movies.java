@@ -1,6 +1,5 @@
 package com.example.mpelu.androidgroupproject;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,11 +9,18 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -25,9 +31,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class Movies extends Activity {
+public class Movies extends AppCompatActivity {
     public static final String ACTIVITY_NAME = "Movies";
     Context ctx = this;
+
+    Toolbar movieBar = null;
+    ListView movieList = null;
+    ProgressBar movieProgress = null;
+
+    MovieQuery query;
+
+
     public SQLiteDatabase db;
     static final int VERSION_NUM = 2;
     static final String DATABASE_NAME = "FavoriteMovies";
@@ -39,47 +53,75 @@ public class Movies extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
 
+        movieBar = findViewById(R.id.toolbar);
+        setSupportActionBar(movieBar);
+
+        query = new MovieQuery();
+        query.execute();
+
         MovieDatabaseHelper dbHelp = new MovieDatabaseHelper(this);
         db = dbHelp.getReadableDatabase();
 
+        movieList = findViewById(R.id.movieList);
 
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.movie_nav, menu);
+        MenuItem searchItem = menu.findItem(R.id.search);
+        SearchView sView = (SearchView)searchItem.getActionView();
 
-        final EditText searchTerm = findViewById(R.id.movieEdit);
-        final Button search = findViewById(R.id.movieButton);
-        final ListView movieList = findViewById(R.id.movieList);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
-        builder.setMessage(R.string.movie_dialog)
-                .setTitle(R.string.movie_dialog_title)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                 })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-                    @Override
-                    public void onClick(DialogInterface dialog, int which){
-
-                    }
-                })
-                .show();
-
-
-        search.setOnClickListener(new View.OnClickListener(){
+        sView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
-            public void onClick(View v){
-                Toast toast = Toast.makeText(ctx, "button clicked", Toast.LENGTH_LONG);
-                toast.show();
+            public boolean onQueryTextSubmit(String query){
+                //TODO, SQL
 
-                MyHttpQuery query = new MyHttpQuery();
-                query.execute("one", "two");
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText){
+               //TODO - what?
+
+                return false;
             }
         });
+        return true;
+    }
 
-//        Snackbar snack = Snackbar.make(search, R.string.movie_snackbar, Snackbar.LENGTH_LONG);
-//        snack.show(); //above line throws exception
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.movieStats:
+
+                //TODO, SQL
+
+                break;
+            case R.id.movieAbout:
+                AlertDialog.Builder builder = new AlertDialog.Builder(ctx);
+                builder.setMessage(R.string.movie_dialog)
+                        .setTitle(R.string.movie_dialog_title)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                //TODO, about
+
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+                            @Override
+                            public void onClick(DialogInterface dialog, int which){
+
+                                //TODO, need?
+
+                            }
+                        })
+                        .show();
+                break;
+            default:
+        }
+        return false;
     }
 
     @Override
@@ -107,11 +149,13 @@ public class Movies extends Activity {
         }
     }
 
-    class MyHttpQuery extends AsyncTask<String, Integer, String>{
+    public class MovieQuery extends AsyncTask<String, Integer, String>{
+
+          //TODO class variables (title, actors, etc)
 
         public String doInBackground(String...args){
             try{
-                URL url = new URL("http://www.google.com/");
+                URL url = new URL("http://www.google.com/"); //TODO, encode
                 HttpURLConnection urlConnect = (HttpURLConnection)url.openConnection();
                 InputStream response = urlConnect.getInputStream();
 
@@ -124,7 +168,16 @@ public class Movies extends Activity {
                     switch(xpp.getEventType()){
                         case XmlPullParser.START_TAG:
                             String name = xpp.getName();
-                            String value = xpp.getAttributeValue(null, "message");
+                            if(name.equals("movie")){
+
+                                //TODO, Async
+
+
+
+                            }else if(name.equals("error")){
+
+                                //TODO toast
+                            }
                             break;
                         case XmlPullParser.TEXT:
 
@@ -134,20 +187,20 @@ public class Movies extends Activity {
                     xpp.next();
                 }
             }catch(Exception e){
+                Log.i("Exception", e.getMessage());
             }
+            //TODO ? download image?
 
-            String first = args[0];
-
-            publishProgress();
-            return null;
+            return "finished";
         }
 
         public void onProgressUpdate(Integer...args){
-
+            movieProgress.setVisibility(View.VISIBLE);
+            movieProgress.setProgress(args[0]);
         }
 
         public void onPostExecute(String result){
-
+            //TODO change TextViews - but where are they?
         }
     }
 }
