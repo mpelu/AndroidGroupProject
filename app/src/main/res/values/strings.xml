@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Android Group Project</string>
+    <string name="searchBtn">Go</string>
+    <string name="searchEditTxt">search</string>
 </resources>
