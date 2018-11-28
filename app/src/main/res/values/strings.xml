@@ -12,5 +12,9 @@
     <string name="aboutMovies">About</string>
     <string name="searchMovies">Search</string>
     <string name="movieData">Movie data</string>
+    <string name="movie_stats_dialog">some dialogue</string>
+    <string name="movie_stats_dialog_title">Movie Statistics</string>
+    <string name="movieSaveDelete">Save or Unsave</string>
+    <string name="addMovieToFaves">Add to Favourites</string>
 
 </resources>
