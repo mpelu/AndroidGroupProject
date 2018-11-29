@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -26,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
+import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -43,16 +45,19 @@ import java.net.URLEncoder;
 public class Movies extends AppCompatActivity {
     public static final String ACTIVITY_NAME = "Movies";
     Context ctx = this;
-
     Toolbar movieBar = null;
-
+    MovieQuery mQuery;
     Button addFave = null;
 
-    ProgressBar movieProgress = null;
-
     TextView searchResult;
+    TextView mYear;
+    TextView mRated;
+    TextView mRuntime;
+    TextView mActors;
+    TextView mPlot;
+    ImageView mPoster;
 
-    MovieQuery mQuery;
+    ProgressBar movieProgress = null;
 
     public SQLiteDatabase db;
     static final int VERSION_NUM = 2;
@@ -64,37 +69,33 @@ public class Movies extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movies);
-
         movieBar = findViewById(R.id.toolbar);
         setSupportActionBar(movieBar);
 
         MovieDatabaseHelper dbHelp = new MovieDatabaseHelper(this);
         db = dbHelp.getReadableDatabase();
-        final ContentValues cv = new ContentValues();
 
-
-
-
+//        movieProgress.setVisibility(View.INVISIBLE);
 
         searchResult = findViewById(R.id.searchResult);
 
+//        searchResult.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v){
+//                if(searchResult.getText() != null){
+//                    Bundle infoToPass = new Bundle();
+//
+//                    Intent next = new Intent(Movies.this, MovieDetails.class);
+//                    next.putExtras(infoToPass);
+//                    startActivityForResult(next, 49);
+//
+//                    //TODO display on main
+//
+//                }
+//            }
+//        });
+
         addFave = findViewById(R.id.movieAdd);
-
-        searchResult.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                if(searchResult.getText() != null){
-                    Bundle infoToPass = new Bundle();
-
-                    Intent next = new Intent(Movies.this, MovieDetails.class);
-                    next.putExtras(infoToPass);
-                    startActivityForResult(next, 49);
-
-                    //TODO display on main
-
-                }
-            }
-        });
 
         addFave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +108,8 @@ public class Movies extends AppCompatActivity {
                // newRow.put()add all movie info
 
                 long id = db.insert(TABLE_NAME, "", newRow);
-                String newFilename = "picture"+id + ".png";
+
+                String newFilename = "picture"+ id + ".png";
                 FileOutputStream outputStream = null;
                 try {
                     outputStream = openFileOutput(newFilename, Context.MODE_PRIVATE);
@@ -146,8 +148,8 @@ public class Movies extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String newText){
-               //TODO - need?
-
+                mQuery = new MovieQuery(newText);
+                mQuery.execute();
                 return false;
             }
         });
@@ -222,7 +224,7 @@ public class Movies extends AppCompatActivity {
 
         @Override
         public void onCreate(SQLiteDatabase db){
-            db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, title text)");
+            db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, title text, year INTEGER, rated text, runtime INTEGER, actors text, plot text, filename text)");
         }
 
         @Override
@@ -238,7 +240,7 @@ public class Movies extends AppCompatActivity {
         String title;
         int year;
         String rated;
-        String runtime;
+        int runtime;
         String actors;
         String plot;
         String poster;
@@ -251,9 +253,6 @@ public class Movies extends AppCompatActivity {
         public String doInBackground(String... args) {
             try {
                 String queryUrl = "http://www.omdbapi.com/?t=" + URLEncoder.encode(queryString, "UTF-8") + "&r=xml&apikey=b32928c2";
-
-
-//                URL url = new URL("http://www.omdbapi.com/?t=the+matrix&r=xml&apikey=b32928c2");
                 URL url = new URL(queryUrl);
                 HttpURLConnection urlConnect = (HttpURLConnection) url.openConnection();
                 InputStream response = urlConnect.getInputStream();
@@ -271,15 +270,19 @@ public class Movies extends AppCompatActivity {
                                 title = xpp.getAttributeValue(null, "title");
                                 publishProgress(5);
                                 year = Integer.parseInt(xpp.getAttributeValue(null, "year"));
-                                publishProgress(10);
+                                publishProgress(20);
                                 rated = xpp.getAttributeValue(null, "rated");
-                                runtime = xpp.getAttributeValue(null, "runtime");
+                                publishProgress(35);
+                                String run = xpp.getAttributeValue(null, "runtime");
+                                String runTrim = run.substring(0, run.indexOf(" "));
+                                runtime = Integer.parseInt(runTrim);
+                                publishProgress(50);
+                                actors = xpp.getAttributeValue(null, "actors");
+                                publishProgress(65);
+                                plot = xpp.getAttributeValue(null, "plot");
+                                publishProgress(80);
                                 poster = xpp.getAttributeValue(null, "poster");
-
-                                Log.i(ACTIVITY_NAME, title + year + rated);
-
-                                //TODO finish
-
+                                publishProgress(95);
                             } else if (name.equals("error")) {
                                 Toast.makeText(ctx, "No results found", Toast.LENGTH_LONG).show();
                             }
@@ -316,10 +319,10 @@ public class Movies extends AppCompatActivity {
             return "finished";
         }
 
-        public boolean fileExistence(String fname) {
-            File file = getBaseContext().getFileStreamPath(fname);
-            return file.exists();
-        }
+//        public boolean fileExistence(String fname) {
+//            File file = getBaseContext().getFileStreamPath(fname);
+//            return file.exists();
+//        }
 
         public void onProgressUpdate(Integer... args) {
             movieProgress.setVisibility(View.VISIBLE);
@@ -328,10 +331,25 @@ public class Movies extends AppCompatActivity {
 
         public void onPostExecute(String result) {
             searchResult = findViewById(R.id.searchResult);
-            searchResult.setText(title + " (" + year + ")");
-            Log.i(ACTIVITY_NAME, title + year + rated);
-            //TODO
+            TextView yearV = findViewById(R.id.searchYear);
+            TextView ratedV = findViewById(R.id.searchRated);
+            TextView runtimeV = findViewById(R.id.searchRuntime);
+            TextView actorsV = findViewById(R.id.searchActors);
+            TextView plotV = findViewById(R.id.searchPlot);
+            ImageView posterV = findViewById(R.id.searchPoster);
 
+            searchResult.setText(title + " (" + year + ")");
+
+            yearV.setText(year + "");
+            ratedV.setText("Rated " + rated);
+            runtimeV.setText(runtime + " min");
+            actorsV.setText(actors +"");
+            plotV.setText(plot +"");
+            posterV.setImageBitmap(picture);
+
+            Log.i(ACTIVITY_NAME, runtime + actors + plot);
+
+            movieProgress.setVisibility(View.INVISIBLE);
             addFave.setVisibility(View.VISIBLE);
         }
     }

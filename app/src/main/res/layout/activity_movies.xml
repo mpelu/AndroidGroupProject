@@ -20,8 +20,43 @@
         android:id="@+id/searchResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
-        android:text="null"/>
+        android:layout_below="@+id/toolbar"/>
+
+    <TextView
+        android:id="@+id/searchYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchResult"/>
+
+    <TextView
+        android:id="@+id/searchRated"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchYear"/>
+
+    <TextView
+        android:id="@+id/searchRuntime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchRated"/>
+
+    <TextView
+        android:id="@+id/searchActors"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchRuntime"/>
+
+    <TextView
+        android:id="@+id/searchPlot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchActors"/>
+
+    <ImageView
+        android:id="@+id/searchPoster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchPlot"/>
 
     <Button
         android:id="@+id/movieAdd"
