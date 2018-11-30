@@ -27,9 +27,9 @@ public class MainActivity extends Activity {
         nutritionBtn = findViewById(R.id.nutritionInfoBtn);
 
         nutritionBtn.setOnClickListener( e -> {
-            Intent intent = new Intent(MainActivity.this, NutritionDatabase.class);
-            startActivity(intent);
-
+                    Intent intent = new Intent(MainActivity.this, NutritionDatabase.class);
+                    startActivity(intent);
+                });
 
         Button toMovies = findViewById(R.id.goToMovie);
 
