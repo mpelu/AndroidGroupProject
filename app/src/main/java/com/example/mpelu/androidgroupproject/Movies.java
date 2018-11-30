@@ -160,8 +160,8 @@ public class Movies extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.faves:
-
-                //TODO switch activity
+                Intent next = new Intent(Movies.this, MovieFavourites.class);
+                startActivityForResult(next, 89);
 
                 break;
             case R.id.movieStats:
@@ -214,8 +214,6 @@ public class Movies extends AppCompatActivity {
         super.onDestroy();
         db.close();
     }
-
-    // private class MovieAdapter extends ArrayAdapter<String> arguable don't have to extend class, just declare a variable of that type - this is for faves
 
     class MovieDatabaseHelper extends SQLiteOpenHelper{
         public MovieDatabaseHelper(Context ctx){
