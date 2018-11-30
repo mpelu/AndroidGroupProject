@@ -148,8 +148,6 @@ public class Movies extends AppCompatActivity {
             }
             @Override
             public boolean onQueryTextChange(String newText){
-                mQuery = new MovieQuery(newText);
-                mQuery.execute();
                 return false;
             }
         });
@@ -215,27 +213,10 @@ public class Movies extends AppCompatActivity {
         db.close();
     }
 
-    class MovieDatabaseHelper extends SQLiteOpenHelper{
-        public MovieDatabaseHelper(Context ctx){
-            super(ctx, DATABASE_NAME, null, VERSION_NUM);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db){
-            db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, title text, year INTEGER, rated text, runtime INTEGER, actors text, plot text, filename text)");
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVer, int newVer){
-            db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
-            onCreate(db);
-        }
-    }
-
     public class MovieQuery extends AsyncTask<String, Integer, String> {
         String queryString;
 
-        String title;
+        String title="";
         int year;
         String rated;
         int runtime;
@@ -282,7 +263,7 @@ public class Movies extends AppCompatActivity {
                                 poster = xpp.getAttributeValue(null, "poster");
                                 publishProgress(95);
                             } else if (name.equals("error")) {
-                                Toast.makeText(ctx, "No results found", Toast.LENGTH_LONG).show();
+                                return "error";
                             }
                             break;
                         case XmlPullParser.TEXT:
@@ -336,6 +317,10 @@ public class Movies extends AppCompatActivity {
             TextView plotV = findViewById(R.id.searchPlot);
             ImageView posterV = findViewById(R.id.searchPoster);
 
+            if(result.equals("error"))
+            {       Toast.makeText(ctx, "No results found", Toast.LENGTH_LONG).show(); //TODO, doesn't work
+                return;
+        }
             searchResult.setText(title + " (" + year + ")");
 
             yearV.setText(year + "");
