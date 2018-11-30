@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Android Group Project</string>
+
+    <string name="searchBtn">Go</string>
+    <string name="searchEditTxt">search</string>
+
     <string name="movieHint">Enter a movie title</string>
     <string name="movieSearch">Search</string>
     <string name="goToMovie">Go to Movies</string>
@@ -12,5 +16,6 @@
     <string name="aboutMovies">About</string>
     <string name="searchMovies">Search</string>
     <string name="movieData">Movie data</string>
+
 
 </resources>
