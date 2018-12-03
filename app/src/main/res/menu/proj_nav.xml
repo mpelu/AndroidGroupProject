@@ -1,4 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/CBC"
+        android:title="CBC"
+        app:showAsAction="always"
+        android:orderInCategory="100" />
+
+    <item
+        android:id="@+id/Movies"
+        android:title="Movies"
+        app:showAsAction="always"
+        android:orderInCategory="200" />
+
+    <item
+        android:id="@+id/Nutrition"
+        android:title="Nutrition"
+        app:showAsAction="always"
+        android:orderInCategory="300" />
+
+    <item
+        android:id="@+id/OCTranspo"
+        android:title="OCTranspo"
+        app:showAsAction="always"
+        android:orderInCategory="400" />
 
 </menu>

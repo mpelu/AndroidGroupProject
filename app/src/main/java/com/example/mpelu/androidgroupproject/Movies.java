@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -49,13 +48,13 @@ public class Movies extends AppCompatActivity {
     MovieQuery mQuery;
     Button addFave = null;
 
-    TextView searchResult;
-    TextView mYear;
-    TextView mRated;
-    TextView mRuntime;
-    TextView mActors;
-    TextView mPlot;
-    ImageView mPoster;
+//    TextView searchResult;
+//    TextView mYear;
+//    TextView mRated;
+//    TextView mRuntime;
+//    TextView mActors;
+//    TextView mPlot;
+//    ImageView mPoster;
 
     ProgressBar movieProgress = null;
 
@@ -64,6 +63,11 @@ public class Movies extends AppCompatActivity {
     static final String DATABASE_NAME = "FavoriteMovies";
     static final String TABLE_NAME = "Movies";
     static final String KEY_TITLE = "Title";
+    static final String KEY_YEAR = "Year";
+    static final String KEY_RATED = "Rated";
+    static final String KEY_RUNTIME = "Runtime";
+    static final String KEY_ACTORS = "Actors";
+    static final String KEY_PLOT = "Plot";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,61 +79,41 @@ public class Movies extends AppCompatActivity {
         MovieDatabaseHelper dbHelp = new MovieDatabaseHelper(this);
         db = dbHelp.getReadableDatabase();
 
-//        movieProgress.setVisibility(View.INVISIBLE);
-
-        searchResult = findViewById(R.id.searchResult);
-
-//        searchResult.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                if(searchResult.getText() != null){
-//                    Bundle infoToPass = new Bundle();
-//
-//                    Intent next = new Intent(Movies.this, MovieDetails.class);
-//                    next.putExtras(infoToPass);
-//                    startActivityForResult(next, 49);
-//
-//                    //TODO display on main
-//
-//                }
-//            }
-//        });
-
         addFave = findViewById(R.id.movieAdd);
-
         addFave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
               //do you really want to save?  AlertDialog
                 //open database
-                ContentValues newRow = new ContentValues();
-                newRow.put(KEY_TITLE, mQuery.title);
-               // newRow.put()add all movie info
+                if(mQuery.year != 0){
+                    ContentValues newRow = new ContentValues();
+                    newRow.put(KEY_TITLE, mQuery.title);
+                    newRow.put(KEY_YEAR, mQuery.year);
+                    newRow.put(KEY_RATED, mQuery.rated);
+                    newRow.put(KEY_RUNTIME, mQuery.runtime);
+                    newRow.put(KEY_ACTORS, mQuery.actors);
+                    newRow.put(KEY_PLOT, mQuery.plot);
 
-                long id = db.insert(TABLE_NAME, "", newRow);
+                    long id = db.insert(TABLE_NAME, "", newRow);
 
-                String newFilename = "picture"+ id + ".png";
-                FileOutputStream outputStream = null;
-                try {
-                    outputStream = openFileOutput(newFilename, Context.MODE_PRIVATE);
-                    mQuery.picture.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
-                    outputStream.flush();
-                    outputStream.close();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+//                String newFilename = "picture"+ id + ".png";
+//                FileOutputStream outputStream = null;
+//                try {
+//                    outputStream = openFileOutput(newFilename, Context.MODE_PRIVATE);
+//                    mQuery.picture.compress(Bitmap.CompressFormat.PNG, 80, outputStream); //TODO compress on null object (npe)
+//                    outputStream.flush();
+//                    outputStream.close();
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 }
-
                 Snackbar.make(addFave, "Added to Favourites", Snackbar.LENGTH_LONG).show();
             }
         });
 
-//        (new MovieQuery()).execute();
-
         movieProgress = findViewById(R.id.movieProgress);
-
         movieProgress.setVisibility(View.VISIBLE);
     }
 
@@ -142,6 +126,7 @@ public class Movies extends AppCompatActivity {
         sView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
             @Override
             public boolean onQueryTextSubmit(String query){
+                addFave.setVisibility(View.INVISIBLE);
                 mQuery = new MovieQuery(query);
                 mQuery.execute();
                 return false;
@@ -160,7 +145,6 @@ public class Movies extends AppCompatActivity {
             case R.id.faves:
                 Intent next = new Intent(Movies.this, MovieFavourites.class);
                 startActivityForResult(next, 89);
-
                 break;
             case R.id.movieStats:
                 AlertDialog.Builder statsBuilder = new AlertDialog.Builder(ctx);
@@ -170,15 +154,11 @@ public class Movies extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //TODO  SQL stats
-
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
                             @Override
-                            public void onClick(DialogInterface dialog, int which){
-                                //TODO, need?
-
-                            }
+                            public void onClick(DialogInterface dialog, int which){ }
                         })
                         .show();
                 break;
@@ -190,15 +170,11 @@ public class Movies extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //TODO, about
-
                             }
                         })
                         .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
                             @Override
-                            public void onClick(DialogInterface dialog, int which){
-                                //TODO, need?
-
-                            }
+                            public void onClick(DialogInterface dialog, int which){ }
                         })
                         .show();
                 break;
@@ -275,33 +251,12 @@ public class Movies extends AppCompatActivity {
             } catch (Exception e) {
                 Log.i("Exception", e.getMessage());
             }
-            //if (fileExistence(poster) == false) {
-              //  try {
-                    picture = HttpUtils.getImage(poster);
-                    publishProgress(100);
-                  //  FileOutputStream outputStream = openFileOutput(poster, Context.MODE_PRIVATE);
-                 //   picture.compress(Bitmap.CompressFormat.PNG, 80, outputStream);
-                  //  outputStream.flush();
-                  //  outputStream.close();
-               // } catch (Exception e) {
-                 //   Log.i("Exception", e.getMessage());
-                //}
-           // } else {
-             //   FileInputStream fis = null;
-              //  try {
-               //     fis = openFileInput(poster);
-                //} catch (FileNotFoundException e) {
-                 //   e.printStackTrace();
-                //}
-                //picture = BitmapFactory.decodeStream(fis);
-          //  }
+
+            picture = HttpUtils.getImage(poster);
+            publishProgress(100);
+
             return "finished";
         }
-
-//        public boolean fileExistence(String fname) {
-//            File file = getBaseContext().getFileStreamPath(fname);
-//            return file.exists();
-//        }
 
         public void onProgressUpdate(Integer... args) {
             movieProgress.setVisibility(View.VISIBLE);
@@ -309,7 +264,7 @@ public class Movies extends AppCompatActivity {
         }
 
         public void onPostExecute(String result) {
-            searchResult = findViewById(R.id.searchResult);
+            TextView titleV = findViewById(R.id.searchTitle);
             TextView yearV = findViewById(R.id.searchYear);
             TextView ratedV = findViewById(R.id.searchRated);
             TextView runtimeV = findViewById(R.id.searchRuntime);
@@ -317,20 +272,18 @@ public class Movies extends AppCompatActivity {
             TextView plotV = findViewById(R.id.searchPlot);
             ImageView posterV = findViewById(R.id.searchPoster);
 
-            if(result.equals("error"))
-            {       Toast.makeText(ctx, "No results found", Toast.LENGTH_LONG).show(); //TODO, doesn't work
+            if(result.equals("error")) {
+                Toast.makeText(ctx, "No results found", Toast.LENGTH_LONG).show();
                 return;
-        }
-            searchResult.setText(title + " (" + year + ")");
+            }
 
+            titleV.setText(title + "");
             yearV.setText(year + "");
             ratedV.setText("Rated " + rated);
             runtimeV.setText(runtime + " min");
-            actorsV.setText(actors +"");
-            plotV.setText(plot +"");
+            actorsV.setText(actors + "");
+            plotV.setText(plot + "");
             posterV.setImageBitmap(picture);
-
-            Log.i(ACTIVITY_NAME, runtime + actors + plot);
 
             movieProgress.setVisibility(View.INVISIBLE);
             addFave.setVisibility(View.VISIBLE);
@@ -356,6 +309,7 @@ public class Movies extends AppCompatActivity {
                 }
             }
         }
+
         public static Bitmap getImage(String urlString) {
             try {
                 URL url = new URL(urlString);

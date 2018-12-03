@@ -4,6 +4,7 @@ import android.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
 
 public class MovieDetails extends AppCompatActivity {
 
@@ -22,6 +23,6 @@ public class MovieDetails extends AppCompatActivity {
 //        ftrans.replace()
         //this holds info
 
-        //TODO button
+
     }
 }

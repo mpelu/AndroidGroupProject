@@ -9,15 +9,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class MovieFavourites extends AppCompatActivity {
     ListView movieList = null;
+    Button fragmentButton;
     ArrayList<String> movieArray = new ArrayList<String>();
     MovieAdapter mAdapter;
-//    Cursor c;
+    Cursor c;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,15 @@ public class MovieFavourites extends AppCompatActivity {
         setContentView(R.layout.activity_movie_favourites);
 
         mAdapter = new MovieAdapter(this);
+
+        fragmentButton = findViewById(R.id.toMovieFrag);
+        fragmentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(MovieFavourites.this, MovieDetails.class);
+                startActivityForResult(next, 51);
+            }
+        });
 
         movieList = findViewById(R.id.movieList);
 
@@ -49,9 +60,9 @@ public class MovieFavourites extends AppCompatActivity {
             super(context, 0);
         }
 
-//        public long getItemId(int position){
-//            c.moveToPosition(position);
-//            return c.getInt(c.getColumnIndex("_id"));
-//        }
+        public long getItemId(int position){
+            c.moveToPosition(position);
+            return c.getInt(c.getColumnIndex("_id"));
+        }
     }
 }
