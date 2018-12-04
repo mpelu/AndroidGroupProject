@@ -21,6 +21,7 @@
         <activity android:name=".NutritionDatabase"></activity>
         <activity android:name=".Movies" />
 
+        <activity android:name=".CBCDetails" />
     </application>
 
 </manifest>
