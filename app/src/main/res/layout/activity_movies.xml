@@ -1,31 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Movies"
     android:orientation="vertical">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:minHeight="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/movie_nav"
-    />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        app:menu="@menu/movie_nav" />
 
-    <ListView
-        android:id="@+id/movieList"
+    <TextView
+        android:id="@+id/searchResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_below="@+id/toolbar"/>
+
+    <TextView
+        android:id="@+id/searchYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchResult"/>
+
+    <TextView
+        android:id="@+id/searchRated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchYear"/>
+
+    <TextView
+        android:id="@+id/searchRuntime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchRated"/>
+
+    <TextView
+        android:id="@+id/searchActors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchRuntime"/>
+
+    <TextView
+        android:id="@+id/searchPlot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchActors"/>
+
+    <ImageView
+        android:id="@+id/searchPoster"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchPlot"/>
+
+    <Button
+        android:id="@+id/movieAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        android:text="@string/addMovieToFaves" />
 
     <ProgressBar
         android:id="@+id/movieProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:visibility="visible"
-        style="?android:attr/progressBarStyleHorizontal"
-        />
+        style="?android:attr/progressBarStyleHorizontal" />
 
-</LinearLayout>
+</RelativeLayout>
