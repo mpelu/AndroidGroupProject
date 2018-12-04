@@ -1,10 +1,9 @@
 package com.example.mpelu.androidgroupproject;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ public class MessageFragment extends Fragment {
     OcTranspo chat;
 
     public MessageFragment(){ }
-    @SuppressLint("ValidFragment")
+
     public MessageFragment(OcTranspo cw){
         chat=cw;
     }

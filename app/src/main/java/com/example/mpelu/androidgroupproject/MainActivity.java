@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
         Button ocbtn = findViewById(R.id.ocStartBtn);
         ocbtn.setOnClickListener((View v) -> {
             Intent intent = new Intent(MainActivity.this, OcTranspo.class);
-            startActivityForResult(intent, 50);
+            startActivity(intent);
         });
     }
 }

@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,14 +19,12 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import static com.example.mpelu.androidgroupproject.ocDatabase.TABLE_NAME;
 
 public class OcTranspo extends Activity {
-
 
     ListView outputView;
     EditText inputText;
@@ -38,17 +35,18 @@ public class OcTranspo extends Activity {
     Cursor c;
     final static int REQUESTED_RESULT_FRAGMENT = 10;
     ocDatabase dbHelper;
+    protected static final String ACTIVITY_NAME = "OcTranspo";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_oc_transpo);
-/*
-        outputView=(ListView) findViewById(R.id.outputText);
-        inputText=(EditText) findViewById(R.id.inputText);
-        sendButton=(Button) findViewById(R.id.sendButton);
+
+        outputView=(ListView) findViewById(R.id.lvOC);
+        inputText=(EditText) findViewById(R.id.etOC);
+        sendButton=(Button) findViewById(R.id.btnOC);
         isPhone=(FrameLayout) findViewById(R.id.frame_layout)==null;
-*/
+
         dbHelper = new ocDatabase(this);
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
 
@@ -57,25 +55,23 @@ public class OcTranspo extends Activity {
                 null,null,null,null);
         final int messageIndex = c.getColumnIndex("MESSAGE");
 
-        outputView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Bundle b=new Bundle();
-                b.putLong("ID",id);
-                b.putString("Message", list.get(position));
-                if(isPhone){
-                    Intent goToDetails = new Intent (OcTranspo.this, MessageDetails.class);
-                    goToDetails.putExtras(b);
-                    startActivityForResult(goToDetails, REQUESTED_RESULT_FRAGMENT);
-                }else{
-                    b.putBoolean("IsTablet", true);
-                    FragmentTransaction ft = getFragmentManager().beginTransaction();
-                    MessageFragment mf = new MessageFragment(ChatWindow.this);
-                    mf.setArguments(b); //pass the id to the fragment
+        outputView.setOnItemClickListener((parent, view, position, id) -> {
+            Bundle b=new Bundle();
+            b.putLong("ID",id);
+            b.putString("Message", list.get(position));
+            if(isPhone){
+                Intent goToDetails = new Intent (OcTranspo.this, MessageDetails.class);
+                goToDetails.putExtras(b);
+                startActivityForResult(goToDetails, REQUESTED_RESULT_FRAGMENT);
+            }else{
+                b.putBoolean("IsTablet", true);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                MessageFragment mf = new MessageFragment(OcTranspo.this);
+                mf.setArguments(b); //pass the id to the fragment
 
-                    ft.replace(R.id.frame_layout, mf )
-                            .addToBackStack("")
-                            .commit();
-                }
+                ft.replace(R.id.frame_layout, mf)
+                        .addToBackStack("")
+                        .commit();
             }
         });
 
@@ -95,8 +91,7 @@ public class OcTranspo extends Activity {
         final ChatAdapter messageAdapter =new ChatAdapter( this );
         outputView.setAdapter(messageAdapter);
 
-        Button ocbtn = findViewById(R.id.btnOC);
-        ocbtn.setOnClickListener((View v) -> {
+        sendButton.setOnClickListener((View v) -> {
             String m = inputText.getText().toString();
             ContentValues cValues = new ContentValues();
             cValues.put("MESSAGE", m);
@@ -112,9 +107,6 @@ public class OcTranspo extends Activity {
         });
 
         ProgressBar ocpb = findViewById(R.id.pbOC);
-        ocbtn.setOnClickListener((View v) -> {
-
-        });
 
     }
     @Override
@@ -168,11 +160,11 @@ public class OcTranspo extends Activity {
             LayoutInflater inflater = OcTranspo.this.getLayoutInflater();
 
             View result = null ;
-           /* if(position%2 == 0)
+            if(position%2 == 0)
                 result = inflater.inflate(R.layout.chat_row_incoming, null);
             else
                 result = inflater.inflate(R.layout.chat_row_outgoing, null);
-*/
+
             TextView message = (TextView)result.findViewById(R.id.message_text);
             message.setText(   getItem(position)  );
             return result;
