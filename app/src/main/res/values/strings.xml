@@ -11,11 +11,15 @@
     <string name="movie_dialog_title">Movie Activity</string>
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
-    <string name="movie_snackbar">This is a snackbar</string>
     <string name="search_text_button">this is some text</string>
     <string name="aboutMovies">About</string>
     <string name="searchMovies">Search</string>
     <string name="movieData">Movie data</string>
+    <string name="movie_stats_dialog">some dialogue</string>
+    <string name="movie_stats_dialog_title">Movie Statistics</string>
+    <string name="addMovieToFaves">Add to Favourites</string>
+    <string name="toMovieFragment">To Movie Fragment</string>
+    <string name="thisIsMovieFrag">This is the movie Fragment</string>
 
 
     <string name="cbcRefreshButton">Refresh</string>
