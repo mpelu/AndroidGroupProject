@@ -22,4 +22,6 @@
     <string name="thisIsMovieFrag">This is the movie Fragment</string>
 
 
+    <string name="cbcRefreshButton">Refresh</string>
+    <string name="cbcSaveButton">Save Article</string>
 </resources>
