@@ -51,7 +51,7 @@ public class NutritionDatabase extends ListActivity {
       nutritionFavesListView.setAdapter(new ArrayAdapter<String>(
               (this), R.layout.activity_nutrition_database, R.id.nutritionListView, nutritionFaves));
         Toast toastOn = Toast.makeText(this, "Toast's up", Toast.LENGTH_LONG);
-      searchBtn.setOnClickListener(e -> toastOn.show());
+//      searchBtn.setOnClickListener(e -> toastOn.show());
 
     }
 
