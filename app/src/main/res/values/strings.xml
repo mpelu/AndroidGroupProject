@@ -20,6 +20,7 @@
     <string name="movie_stats_dialog_title">Movie Statistics</string>
     <string name="movieSaveDelete">Save or Unsave</string>
     <string name="addMovieToFaves">Add to Favourites</string>
+    <string name="ocSend">Send Message</string>
 
 
     <string name="cbcRefreshButton">Refresh</string>
