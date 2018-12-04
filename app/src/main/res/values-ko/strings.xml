@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Android Group Project</string>
+    <string name="cbcRefreshButton">회복하다</string>
+    <string name="cbcSaveButton">문서 저장</string>
+</resources>

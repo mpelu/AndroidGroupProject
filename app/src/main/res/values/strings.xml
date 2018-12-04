@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Android Group Project</string>
+    <string name="cbcRefreshButton">Refresh</string>
+    <string name="cbcSaveButton">Save Article</string>
 </resources>
