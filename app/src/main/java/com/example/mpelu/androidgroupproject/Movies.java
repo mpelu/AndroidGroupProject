@@ -77,7 +77,7 @@ public class Movies extends AppCompatActivity {
         setSupportActionBar(movieBar);
 
         MovieDatabaseHelper dbHelp = new MovieDatabaseHelper(this);
-        db = dbHelp.getReadableDatabase();
+        db = dbHelp.getWritableDatabase();
 
         addFave = findViewById(R.id.movieAdd);
         addFave.setOnClickListener(new View.OnClickListener() {
@@ -94,7 +94,11 @@ public class Movies extends AppCompatActivity {
                     newRow.put(KEY_ACTORS, mQuery.actors);
                     newRow.put(KEY_PLOT, mQuery.plot);
 
-                    long id = db.insert(TABLE_NAME, "", newRow);
+                    long id = db.insert(TABLE_NAME, "", newRow); //table has no column Rated
+
+                    //arrayadapter notify dataset changed
+
+
 
 //                String newFilename = "picture"+ id + ".png";
 //                FileOutputStream outputStream = null;
@@ -236,8 +240,8 @@ public class Movies extends AppCompatActivity {
                                 publishProgress(65);
                                 plot = xpp.getAttributeValue(null, "plot");
                                 publishProgress(80);
-                                poster = xpp.getAttributeValue(null, "poster");
-                                publishProgress(95);
+//                                poster = xpp.getAttributeValue(null, "poster");
+//                                publishProgress(95);
                             } else if (name.equals("error")) {
                                 return "error";
                             }
@@ -270,7 +274,7 @@ public class Movies extends AppCompatActivity {
             TextView runtimeV = findViewById(R.id.searchRuntime);
             TextView actorsV = findViewById(R.id.searchActors);
             TextView plotV = findViewById(R.id.searchPlot);
-            ImageView posterV = findViewById(R.id.searchPoster);
+//            ImageView posterV = findViewById(R.id.searchPoster);
 
             if(result.equals("error")) {
                 Toast.makeText(ctx, "No results found", Toast.LENGTH_LONG).show();
@@ -283,7 +287,7 @@ public class Movies extends AppCompatActivity {
             runtimeV.setText(runtime + " min");
             actorsV.setText(actors + "");
             plotV.setText(plot + "");
-            posterV.setImageBitmap(picture);
+//            posterV.setImageBitmap(picture);
 
             movieProgress.setVisibility(View.INVISIBLE);
             addFave.setVisibility(View.VISIBLE);

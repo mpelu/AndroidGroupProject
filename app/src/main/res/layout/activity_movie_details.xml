@@ -4,12 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MovieDetails">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/thisIsMovieFrag"
-        android:text="@string/thisIsMovieFrag"/>
+    tools:context=".MovieDetails"
+    android:id="@+id/movie_frag_location">
 
 </FrameLayout>

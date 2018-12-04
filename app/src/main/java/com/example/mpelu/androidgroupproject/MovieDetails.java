@@ -19,10 +19,9 @@ public class MovieDetails extends AppCompatActivity {
 
         mFrag.setArguments(infoToPass);
         FragmentManager fm = getFragmentManager();
-//        FragmentTransaction ftrans = fm.beginTransaction();
-//        ftrans.replace()
+        android.app.FragmentTransaction ftrans = fm.beginTransaction();
+//        ftrans.replace(R.id.movie_frag_location, mFrag);
+        ftrans.commit();
         //this holds info
-
-
     }
 }

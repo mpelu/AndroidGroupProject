@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class MovieDatabaseHelper extends SQLiteOpenHelper {
-    static final int VERSION_NUM = 2;
+    static final int VERSION_NUM = 4;
     static final String DATABASE_NAME = "FavoriteMovies";
     static final String TABLE_NAME = "Movies";
     static final String KEY_TITLE = "Title";
@@ -16,7 +16,7 @@ public class MovieDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db){
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, title text, year INTEGER, rated text, runtime INTEGER, actors text, plot text)");
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (_id INTEGER PRIMARY KEY AUTOINCREMENT, Title text, Year INTEGER, Rated text, Runtime INTEGER, Actors text, Plot text)");
     }
 
     @Override
