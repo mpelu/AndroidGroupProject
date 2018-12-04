@@ -20,4 +20,5 @@
 
     <string name="cbcRefreshButton">Refresh</string>
     <string name="cbcSaveButton">Save Article</string>
+    <string name="goToCBC">Go to CBC News Reader</string>
 </resources>

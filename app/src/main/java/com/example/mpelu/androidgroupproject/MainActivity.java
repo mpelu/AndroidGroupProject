@@ -17,6 +17,7 @@ import android.widget.Button;
 public class MainActivity extends Activity {
     final Context ctx = this;
     final int movieCode = 42;
+    final int cbcCode = 77;
  Button nutritionBtn;
 
     @Override
@@ -32,6 +33,7 @@ public class MainActivity extends Activity {
                 });
 
         Button toMovies = findViewById(R.id.goToMovie);
+        Button toCBC = findViewById(R.id.goToCBC);
 
         toMovies.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,7 +41,14 @@ public class MainActivity extends Activity {
                 Intent nextScreen = new Intent(ctx, Movies.class);
                 startActivityForResult(nextScreen, movieCode);
             }
+        });
 
+        toCBC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent cbcIntent = new Intent(ctx, CBCActivity.class);
+                startActivityForResult(cbcIntent, cbcCode);
+            }
         });
     }
 

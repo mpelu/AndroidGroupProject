@@ -7,6 +7,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!"
@@ -14,17 +15,31 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/nutritionInfoBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nutrition Info"
-        />
+        app:layout_constraintBaseline_toBaselineOf="@+id/goToMovie"
+        app:layout_constraintStart_toStartOf="@+id/goToMovie" />
 
     <Button
         android:id="@+id/goToMovie"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/goToMovie"/>
+        android:text="@string/goToMovie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/goToCBC"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/goToCBC"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nutritionInfoBtn" />
 
 </android.support.constraint.ConstraintLayout>
