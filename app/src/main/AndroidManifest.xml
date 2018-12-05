@@ -10,6 +10,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+<<<<<<< HEAD
+        android:theme="@style/AppTheme"></application>
+=======
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -26,5 +29,6 @@
         <activity android:name=".CBCActivity" />
         <activity android:name=".CBCDetails" />
     </application>
+>>>>>>> ad40ed7f83ae589747006eb9c6e6d23e09e59e53
 
 </manifest>
