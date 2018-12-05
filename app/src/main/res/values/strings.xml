@@ -22,10 +22,6 @@
 
     <string name="cbcRefreshButton">Refresh</string>
     <string name="cbcSaveButton">Save Article</string>
-    <string name="deleteMovie">Delete from Favourites</string>
-    <string name="movieFaves">Favourites</string>
-    <string name="movieSnack">Added to Favourites</string>
-    <string name="movieToast">No results found</string>
     <string name="goToCBC">Go to CBC News Reader</string>
     <string name="cbcUnsaveButton">Remove Save</string>
     <string name="dialogTitle">Dialog Title</string>
@@ -39,4 +35,8 @@
 
 
     <string name="ocSend"> send message</string>
+    <string name="deleteMovie">Delete from Favourites</string>
+    <string name="movieFaves">Favourites</string>
+    <string name="movieSnack">Added to Favourites</string>
+    <string name="movieToast">No results found</string>
 </resources>
