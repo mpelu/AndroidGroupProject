@@ -51,7 +51,7 @@ import org.xmlpull.v1.XmlPullParserException;
  */
 public class CBCActivity extends AppCompatActivity  {
 
-    private static final String ACTIVITY_NAME = "ChatWindow";
+    private static final String ACTIVITY_NAME = "CBCActivity";
     /**
      * ArrayList<String> variables for use when parsing the CBC RSS feed
      */
