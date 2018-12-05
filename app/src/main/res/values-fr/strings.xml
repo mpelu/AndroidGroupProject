@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="movieHint">Saisissez un nom de film</string>
+    <string name="movieSearch">Rechercher</string>
+    <string name="goToMovie">Aller aux Films</string>
+    <string name="movie_dialog">Madeleine Peluso, Version 1.0. Saisissez un nom de film, puis ajoutez-le à vos favoris</string>
+    <string name="movie_dialog_title">Activité Film</string>
+
+    <string name="aboutMovies">À propos</string>
+    <string name="searchMovies">Rechercher</string>
+    <string name="movieData">Statistiques</string>
+    <string name="movie_stats_dialog">du dialogue</string>
+    <string name="movie_stats_dialog_title">Statistiques Film</string>
+    <string name="addMovieToFaves">Ajouter aux favoris</string>
+    <string name="deleteMovie">Supprimer des favoris</string>
+    <string name="movieFaves">Favoris</string>
+    <string name="movieSnack">Ajouté aux favoris</string>
+    <string name="movieToast">Aucun résultat</string>
+</resources>
