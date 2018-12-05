@@ -17,6 +17,7 @@ public class MovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         Bundle infoToPass = getArguments();
+        final int positionPassed = infoToPass.getInt("position");
         final long idPassed = infoToPass.getLong("id");
 
         String passedTitle = infoToPass.getString("title");
@@ -49,6 +50,7 @@ public class MovieFragment extends Fragment {
             public void onClick(View v) {
                 Intent result = new Intent();
                 result.putExtra("id", idPassed);
+                result.putExtra("position", positionPassed);
                 getActivity().setResult(999, result);
                 getActivity().finish();
             }

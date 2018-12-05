@@ -79,6 +79,7 @@ public class MovieFavourites extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 Bundle infoToPass = new Bundle();
 
+                infoToPass.putInt("position", position);
                 infoToPass.putLong("_id", mAdapter.getItemId(position));
                 infoToPass.putString("title", c.getString(title));
                 infoToPass.putInt("year", c.getInt(year));
@@ -104,7 +105,7 @@ public class MovieFavourites extends AppCompatActivity {
     protected void onActivityResult(int request, int result, Intent data){
         if(result == 999){
             Bundle extras = data.getExtras();
-            deleteMessage(extras.getInt("_id"));
+            deleteMessage(extras.getInt("_id"), extras.getInt("position"));
         }
     }
 
@@ -112,22 +113,12 @@ public class MovieFavourites extends AppCompatActivity {
      * Delete movie from favourites
      * @param id - id of movie to be deleted
      */
-    protected void deleteMessage(long id){
+    protected void deleteMessage(int id, int pos){
         try{
-//            int numResults = c.getCount();
-//            int messagesColum = c.getColumnIndex(KEY_MESSAGE);
-            int idColumn = c.getColumnIndex("_id");
-            c.moveToFirst();
-
-            while(!c.isAfterLast()){
-                Log.i(ACTIVITY_NAME, "ID is: "+ c.getInt(idColumn));
-                c.moveToNext();
-            }
-
-            Log.i(ACTIVITY_NAME, "delete movies: " + String.valueOf(id));
-            int numRowsDeleted = db.delete(TABLE_NAME, "_id" + " = " + id, null);
+            db.delete(TABLE_NAME, "_id" + " = " + id, null);
+            movieArray.remove(pos);
             mAdapter.notifyDataSetChanged();
-            Log.i(ACTIVITY_NAME, "#RowsDeleted: " + String.valueOf(numRowsDeleted));
+
         } catch(Exception e){
             Log.i(ACTIVITY_NAME, "Exception thrown");
         }
