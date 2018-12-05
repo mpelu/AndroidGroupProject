@@ -34,12 +34,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(movies, 200);
                 break;
             case R.id.Nutrition:
-                Intent nutrition = new Intent(MainActivity.this, NutritionDatabase.class);
-                startActivityForResult(nutrition, 300);
+                //Intent nutrition = new Intent(MainActivity.this, NutritionDatabase.class);
+                //startActivityForResult(nutrition, 300);
                 break;
             case R.id.OCTranspo:
-                Intent octranspo = new Intent(MainActivity.this, OcTranspo.class);
-                startActivityForResult(octranspo, 400);
+                //Intent octranspo = new Intent(MainActivity.this, OcTranspo.class);
+                //startActivityForResult(octranspo, 400);
                 break;
             default:
         }
