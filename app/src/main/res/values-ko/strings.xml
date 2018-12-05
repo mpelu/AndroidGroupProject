@@ -3,4 +3,12 @@
     <string name="app_name">Android Group Project</string>
     <string name="cbcRefreshButton">회복하다</string>
     <string name="cbcSaveButton">문서 저장</string>
+    <string name="dialogTitle">Dialog Title</string>
+    <string name="OK">네</string>
+    <string name="cancel">캔셀</string>
+    <string name="cbcCustomDialog1">작가: Tristan Duck</string>
+    <string name="cbcCustomDialog2">버전 번호: 6</string>
+    <string name="cbcCustomDialog3">Instructions:\n1. Click the refresh button to refresh the newest articles\n2. Click on a row to open the news article details\n3. The articles contain a link to the full articles and a short description\n4. You can also save and un-save the article for later use\n5. Stats are available in the menu-item </string>
+    <string name="cbcSaved">저장</string>
+    <string name="cbcUnsaveButton">저장 제거</string>
 </resources>

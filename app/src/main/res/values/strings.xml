@@ -25,4 +25,12 @@
     <string name="cbcRefreshButton">Refresh</string>
     <string name="cbcSaveButton">Save Article</string>
     <string name="goToCBC">Go to CBC News Reader</string>
+    <string name="cbcUnsaveButton">Remove Save</string>
+    <string name="dialogTitle">Dialog Title</string>
+    <string name="OK">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="cbcCustomDialog1">Author: Tristan Duck, 040907808</string>
+    <string name="cbcCustomDialog2">Version Number: 6</string>
+    <string name="cbcCustomDialog3">Instructions:\n1. Click the refresh button to refresh the newest articles\n2. Click on a row to open the news article details\n3. The articles contain a link to the full articles and a short description\n4. You can also save and un-save the article for later use\n5. Stats are available in the menu-item </string>
+    <string name="cbcSaved">Saved</string>
 </resources>
