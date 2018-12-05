@@ -20,7 +20,10 @@
         </activity>
         <activity android:name=".NutritionDatabase"></activity>
         <activity android:name=".Movies" />
+        <activity android:name=".MovieDetails" />
+        <activity android:name=".MovieFavourites"></activity>
 
+        <activity android:name=".CBCActivity" />
         <activity android:name=".CBCDetails" />
     </application>
 
