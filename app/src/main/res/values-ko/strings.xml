@@ -11,4 +11,24 @@
     <string name="cbcCustomDialog3">Instructions:\n1. Click the refresh button to refresh the newest articles\n2. Click on a row to open the news article details\n3. The articles contain a link to the full articles and a short description\n4. You can also save and un-save the article for later use\n5. Stats are available in the menu-item </string>
     <string name="cbcSaved">저장</string>
     <string name="cbcUnsaveButton">저장 제거</string>
+    <string name="searchBtn">가요</string>
+    <string name="searchEditTxt">서치</string>
+    <string name="movieHint">제목 입력</string>
+    <string name="movieSearch">서치</string>
+    <string name="goToMovie">영화 보러 가다</string>
+    <string name="movie_dialog">영화 정보</string>
+    <string name="movie_dialog_title">"영화 활동 "</string>
+    <string name="ok">네</string>
+    <string name="search_text_button">본문</string>
+    <string name="aboutMovies">대해서</string>
+    <string name="searchMovies">서치</string>
+    <string name="movieData">다타</string>
+    <string name="movie_stats_dialog">디아로그</string>
+    <string name="movie_stats_dialog_title">스타트스</string>
+    <string name="addMovieToFaves">"호의를 베풀다 "</string>
+    <string name="toMovieFragment">영화 Fragment</string>
+    <string name="thisIsMovieFrag">영화 Fragment</string>
+    <string name="goToCBC">CBC News Reader 가요</string>
+    <string name="mainScreenTitle">CST2335: Final Project</string>
+    <string name="mainScreenGroup">By: Madeleine Peluso, Tristan Duck\nPatty Mosher, Justin Gamache</string>
 </resources>
