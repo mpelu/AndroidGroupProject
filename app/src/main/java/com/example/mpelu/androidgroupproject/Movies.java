@@ -169,7 +169,7 @@ public class Movies extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 //TODO  SQL stats
 
-                                 c = db.rawQuery("select AVG(Runtime), MAX(Runtime), MIN(Runtime) AVG(Year), MAX(Year), MIN(Year) from Movies", null);
+                                 c = db.rawQuery("select AVG(Runtime), MAX(Runtime), MIN(Runtime), AVG(Year), MAX(Year), MIN(Year) from Movies", null);
                                  //
 
                             }
