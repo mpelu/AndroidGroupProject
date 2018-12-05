@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.CBC:
-//                TODO Tristan
 //                Intent cbc = new Intent(MainActivity.this, CBC.class);
 //                startActivityForResult(cbc, 100);
                 break;
@@ -39,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(nutrition, 300);
                 break;
             case R.id.OCTranspo:
-                Intent octranspo = new Intent(MainActivity.this, OcTranspo.class);
-                startActivityForResult(octranspo, 400);
+//                Intent octranspo = new Intent(MainActivity.this, OcTranspo.class);
+//                startActivityForResult(octranspo, 400);
                 break;
             default:
         }
