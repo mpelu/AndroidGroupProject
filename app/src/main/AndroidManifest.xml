@@ -22,8 +22,9 @@
         <activity android:name=".Movies" />
         <activity android:name=".MovieDetails" />
         <activity android:name=".MovieFavourites"></activity>
-
+        <activity android:name=".CBCActivity"></activity>
         <activity android:name=".CBCDetails" />
+        <activity android:name="OcTranspo" />
     </application>
 
 </manifest>

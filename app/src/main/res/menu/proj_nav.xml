@@ -5,25 +5,29 @@
     <item
         android:id="@+id/CBC"
         android:title="CBC"
+        android:icon="@drawable/cbcmain"
         app:showAsAction="always"
-        android:orderInCategory="100" />
+        android:orderInCategory="1" />
 
     <item
         android:id="@+id/Movies"
         android:title="Movies"
+        android:icon="@drawable/moviesmain"
         app:showAsAction="always"
-        android:orderInCategory="200" />
+        android:orderInCategory="2" />
 
     <item
         android:id="@+id/Nutrition"
         android:title="Nutrition"
+        android:icon="@drawable/nutritionmain"
         app:showAsAction="always"
-        android:orderInCategory="300" />
+        android:orderInCategory="3" />
 
     <item
         android:id="@+id/OCTranspo"
         android:title="OCTranspo"
+        android:icon="@drawable/busmain"
         app:showAsAction="always"
-        android:orderInCategory="400" />
+        android:orderInCategory="4" />
 
 </menu>

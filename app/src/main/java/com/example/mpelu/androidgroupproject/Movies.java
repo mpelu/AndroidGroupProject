@@ -162,15 +162,22 @@ public class Movies extends AppCompatActivity {
                 startActivityForResult(next, 89);
                 break;
             case R.id.movieStats:
+//                c = db.rawQuery("select AVG(Runtime), MAX(Runtime), MIN(Runtime), AVG(Year), MAX(Year), MIN(Year) from Movies", null);
+//                c.getColumnName(0);
+//
+////                c.getString(title);
+//
+//                String avgRun = String.valueOf(c.getInt(c.getColumnIndex("AVG(Runtime")));
+
                 AlertDialog.Builder statsBuilder = new AlertDialog.Builder(ctx);
-                statsBuilder.setTitle(R.string.movie_stats_dialog_title)
+                statsBuilder.setMessage("")
+                        .setTitle(R.string.movie_stats_dialog_title)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //TODO  SQL stats
 
-                                 c = db.rawQuery("select AVG(Runtime), MAX(Runtime), MIN(Runtime), AVG(Year), MAX(Year), MIN(Year) from Movies", null);
-                                 //
+
 
                             }
                         })
@@ -255,8 +262,8 @@ public class Movies extends AppCompatActivity {
                                 publishProgress(45);
                                 plot = xpp.getAttributeValue(null, "plot");
                                 publishProgress(55);
-//                                poster = xpp.getAttributeValue(null, "poster");
-//                                publishProgress(75);
+                                poster = xpp.getAttributeValue(null, "poster");
+                                publishProgress(75);
                                 //track if query returned result
                             } else if (name.equals("error")) {
                                 return "error";
@@ -294,7 +301,7 @@ public class Movies extends AppCompatActivity {
             TextView runtimeV = findViewById(R.id.searchRuntime);
             TextView actorsV = findViewById(R.id.searchActors);
             TextView plotV = findViewById(R.id.searchPlot);
-//            ImageView posterV = findViewById(R.id.searchPoster);
+            ImageView posterV = findViewById(R.id.searchPoster);
 
             if(result.equals("error")) {
                 Toast.makeText(ctx, R.string.movieToast, Toast.LENGTH_LONG).show();
@@ -307,7 +314,7 @@ public class Movies extends AppCompatActivity {
             runtimeV.setText(runtime + " min");
             actorsV.setText(actors + "");
             plotV.setText(plot + "");
-//            posterV.setImageBitmap(picture);
+            posterV.setImageBitmap(picture);
 
             movieProgress.setVisibility(View.INVISIBLE);
             addFave.setVisibility(View.VISIBLE);

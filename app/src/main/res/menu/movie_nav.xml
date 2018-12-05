@@ -10,16 +10,16 @@
         android:orderInCategory="100"
         app:actionViewClass="android.widget.SearchView" />
 
+    <item android:id="@+id/movieAbout"
+        android:title="@string/aboutMovies"
+        app:showAsAction="collapseActionView"
+        android:orderInCategory="200" />
+
     <item
         android:id="@+id/faves"
         android:title="@string/movieFaves"
-        app:showAsAction="always"
-        android:orderInCategory="150" />
-
-    <item android:id="@+id/movieAbout"
-        android:title="@string/aboutMovies"
-        app:showAsAction="always"
-        android:orderInCategory="200" />
+        app:showAsAction="collapseActionView"
+        android:orderInCategory="250" />
 
     <item
         android:id="@+id/movieStats"
