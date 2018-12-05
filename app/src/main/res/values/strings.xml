@@ -34,4 +34,7 @@
     <string name="cancel">Cancel</string>
     <string name="mainScreenTitle">CST2335: Final Project</string>
     <string name="mainScreenGroup">By: Madeleine Peluso, Tristan Duck\nPatty Mosher, Justin Gamache</string>
+
+
+    <string name="ocSend"> send message</string>
 </resources>
