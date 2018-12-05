@@ -11,14 +11,26 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * Fragment activity. Inflates article details
+ */
 public class CBCFragment extends Fragment {
 
-    Boolean isTablet;
+    /**
+     * default constructor
+     */
     public CBCFragment() {
         // Required empty public constructor
     }
 
 
+    /**
+     * inflates layout to view
+     * @param inflater: inflater
+     * @param container: container
+     * @param savedInstanceState: bundle saved state
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final Bundle bundle = getArguments();

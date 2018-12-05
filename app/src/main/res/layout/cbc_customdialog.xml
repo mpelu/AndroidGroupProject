@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/cbc_customImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        app:srcCompat="@drawable/profile" />
+
+    <TextView
+        android:id="@+id/cbc_customText"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/cbc_customImage"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="-99dp"
+        android:textSize="16sp"
+        android:text="@string/cbcCustomDialog1" />
+
+    <TextView
+        android:id="@+id/cbc_customText2"
+        android:layout_width="250dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/cbc_customText"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="101dp"
+        android:layout_marginTop="1dp"
+        android:textSize="16sp"
+        android:text="@string/cbcCustomDialog2" />
+
+    <TextView
+        android:id="@+id/cbc_customText3"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:layout_below="@+id/cbc_customText2"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10sp"
+        android:layout_marginRight="10sp"
+        android:layout_marginTop="40dp"
+        android:text="@string/cbcCustomDialog3" />
+
+</RelativeLayout>
