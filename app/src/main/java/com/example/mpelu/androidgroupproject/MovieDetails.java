@@ -1,13 +1,16 @@
 package com.example.mpelu.androidgroupproject;
 
+import android.app.Activity;
 import android.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.widget.Button;
 
-public class MovieDetails extends AppCompatActivity {
-
+/**
+ * @author mpelu
+ * @version 1.0
+ * Holds information in preparation for fragment class, and loads fragment layout
+ */
+public class MovieDetails extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,12 +19,11 @@ public class MovieDetails extends AppCompatActivity {
         Bundle infoToPass = getIntent().getExtras();
 
         MovieFragment mFrag = new MovieFragment();
-
         mFrag.setArguments(infoToPass);
+
         FragmentManager fm = getFragmentManager();
-        android.app.FragmentTransaction ftrans = fm.beginTransaction();
-//        ftrans.replace(R.id.movie_frag_location, mFrag);
+        FragmentTransaction ftrans = fm.beginTransaction();
+        ftrans.replace(R.id.movie_frag_location, mFrag);
         ftrans.commit();
-        //this holds info
     }
 }

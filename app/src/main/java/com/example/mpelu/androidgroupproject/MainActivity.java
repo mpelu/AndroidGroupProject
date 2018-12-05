@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.CBC:
-                Intent cbc = new Intent(MainActivity.this, CBCActivity.class);
-                startActivityForResult(cbc, 100);
+//                Intent cbc = new Intent(MainActivity.this, CBC.class);
+//                startActivityForResult(cbc, 100);
                 break;
             case R.id.Movies:
                 Intent movies = new Intent(MainActivity.this, Movies.class);

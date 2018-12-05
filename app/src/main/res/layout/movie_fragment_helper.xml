@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/mFragTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/mFragYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mFragTitle"/>
+
+    <TextView
+        android:id="@+id/mFragRated"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mFragYear"/>
+
+    <TextView
+        android:id="@+id/mFragRuntime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mFragRated"/>
+
+    <TextView
+        android:id="@+id/mFragActors"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mFragRuntime"/>
+
+    <TextView
+        android:id="@+id/mFragPlot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/mFragActors"/>
+
+
+
+
+    <Button
+        android:id="@+id/deleteMovie"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/deleteMovie"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
