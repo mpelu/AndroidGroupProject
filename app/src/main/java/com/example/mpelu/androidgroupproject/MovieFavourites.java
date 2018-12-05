@@ -21,16 +21,26 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author mpelu
+ * @version 1.0
+ * List of MovieFavourites. Uses ArrayAdapter inner class to display abridged movie entry
+ */
 public class MovieFavourites extends AppCompatActivity {
+    public static final String ACTIVITY_NAME = "MovieFavourites";
+
+    //ArrayAdapter variables
     ListView movieList = null;
-    Button fragmentButton;
     ArrayList<String> movieArray = new ArrayList<String>();
     MovieAdapter mAdapter;
+
+    //Database variables
     Cursor c;
     public SQLiteDatabase db;
     static final int VERSION_NUM = 3;
     static final String DATABASE_NAME = "FavoriteMovies";
     static final String TABLE_NAME = "Movies";
+//    static final String KEY_ID = "ID";
     static final String KEY_TITLE = "Title";
     static final String KEY_YEAR = "Year";
 
@@ -39,46 +49,88 @@ public class MovieFavourites extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_favourites);
 
+        //initialize database
         MovieDatabaseHelper dbHelp = new MovieDatabaseHelper(this);
         db = dbHelp.getReadableDatabase();
+        c = db.rawQuery("SELECT _id, Title, Year, Rated, Runtime, Actors, Plot from Movies", null);
 
-        c = db.rawQuery("SELECT Title, Year from Movies", null);
+        //get column index for favourites list (and then fragment)
         int title = c.getColumnIndex("Title");
         int year = c.getColumnIndex("Year");
-//        Log.i("Found results: " , c.getCount()+ " rows");
+
+        //get column index for fragment list
+        int rated = c.getColumnIndex("Rated");
+        int runtime = c.getColumnIndex("Runtime");
+        int actors = c.getColumnIndex("Actors");
+        int plot = c.getColumnIndex("Plot");
+
         while(c.moveToNext()){
             String titleYear = c.getString(title) + " (" + c.getInt(year) + ")";
             movieArray.add(titleYear);
         }
+
         movieList = findViewById(R.id.movieList);
         mAdapter = new MovieAdapter(this);
         movieList.setAdapter(mAdapter);
 
-//        fragmentButton = findViewById(R.id.toMovieFrag);
-//        fragmentButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent next = new Intent(MovieFavourites.this, MovieDetails.class);
-//                startActivityForResult(next, 51);
-//            }
-//        });
-
         movieList = findViewById(R.id.movieList);
-
         movieList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 Bundle infoToPass = new Bundle();
 
                 infoToPass.putLong("_id", mAdapter.getItemId(position));
-                infoToPass.putString("title", movieArray.get(position));
-                //etc
+                infoToPass.putString("title", c.getString(title));
+                infoToPass.putInt("year", c.getInt(year));
+                infoToPass.putString("rated", c.getString(rated));
+                infoToPass.putInt("runtime", c.getInt(runtime));
+                infoToPass.putString("actors", c.getString(actors));
+                infoToPass.putString("plot", c.getString(plot));
 
                 Intent next = new Intent(MovieFavourites.this, MovieDetails.class);
                 next.putExtras(infoToPass);
                 startActivityForResult(next, 49);
             }
         });
+    }
+
+    /**
+     * Side-effect: delete movie from favourites
+     * @param request - intent request
+     * @param result -intent result
+     * @param data - intent received
+     */
+    @Override
+    protected void onActivityResult(int request, int result, Intent data){
+        if(result == 999){
+            Bundle extras = data.getExtras();
+            deleteMessage(extras.getInt("_id"));
+        }
+    }
+
+    /**
+     * Delete movie from favourites
+     * @param id - id of movie to be deleted
+     */
+    protected void deleteMessage(long id){
+        try{
+//            int numResults = c.getCount();
+//            int messagesColum = c.getColumnIndex(KEY_MESSAGE);
+            int idColumn = c.getColumnIndex("_id");
+            c.moveToFirst();
+
+            while(!c.isAfterLast()){
+                Log.i(ACTIVITY_NAME, "ID is: "+ c.getInt(idColumn));
+                c.moveToNext();
+            }
+
+            Log.i(ACTIVITY_NAME, "delete movies: " + String.valueOf(id));
+            int numRowsDeleted = db.delete(TABLE_NAME, "_id" + " = " + id, null);
+            mAdapter.notifyDataSetChanged();
+            Log.i(ACTIVITY_NAME, "#RowsDeleted: " + String.valueOf(numRowsDeleted));
+        } catch(Exception e){
+            Log.i(ACTIVITY_NAME, "Exception thrown");
+        }
     }
 
     public class MovieAdapter extends ArrayAdapter<String>{

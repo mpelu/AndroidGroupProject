@@ -5,8 +5,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -26,7 +25,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.support.v7.widget.Toolbar;
 
-import org.w3c.dom.Text;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -41,11 +39,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
+/**
+ * @author mpelu
+ * @version 1.0
+ * Splash page for Movie Activity. Displays results form user query using Async Task inner class
+ */
 public class Movies extends AppCompatActivity {
     public static final String ACTIVITY_NAME = "Movies";
     Context ctx = this;
     Toolbar movieBar = null;
-    MovieQuery mQuery;
+    ProgressBar movieProgress = null;
     Button addFave = null;
 
 //    TextView searchResult;
@@ -56,9 +59,12 @@ public class Movies extends AppCompatActivity {
 //    TextView mPlot;
 //    ImageView mPoster;
 
-    ProgressBar movieProgress = null;
+    //Async Task object
+    MovieQuery mQuery;
 
+    //Database variables
     public SQLiteDatabase db;
+    Cursor c;
     static final int VERSION_NUM = 2;
     static final String DATABASE_NAME = "FavoriteMovies";
     static final String TABLE_NAME = "Movies";
@@ -83,8 +89,7 @@ public class Movies extends AppCompatActivity {
         addFave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              //do you really want to save?  AlertDialog
-                //open database
+                //if user query retrieved a result, insert movie details as a row into database
                 if(mQuery.year != 0){
                     ContentValues newRow = new ContentValues();
                     newRow.put(KEY_TITLE, mQuery.title);
@@ -94,11 +99,9 @@ public class Movies extends AppCompatActivity {
                     newRow.put(KEY_ACTORS, mQuery.actors);
                     newRow.put(KEY_PLOT, mQuery.plot);
 
-                    long id = db.insert(TABLE_NAME, "", newRow); //table has no column Rated
+                    long id = db.insert(TABLE_NAME, "", newRow);
 
                     //arrayadapter notify dataset changed
-
-
 
 //                String newFilename = "picture"+ id + ".png";
 //                FileOutputStream outputStream = null;
@@ -113,7 +116,7 @@ public class Movies extends AppCompatActivity {
 //                    e.printStackTrace();
 //                }
                 }
-                Snackbar.make(addFave, "Added to Favourites", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(addFave, R.string.movieSnack, Snackbar.LENGTH_LONG).show();
             }
         });
 
@@ -121,6 +124,11 @@ public class Movies extends AppCompatActivity {
         movieProgress.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Inflate options menu and handle query text submission
+     * @param menu - Toolbar menu
+     * @return if Menu handled query using built-in methods
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.movie_nav, menu);
@@ -136,13 +144,16 @@ public class Movies extends AppCompatActivity {
                 return false;
             }
             @Override
-            public boolean onQueryTextChange(String newText){
-                return false;
-            }
+            public boolean onQueryTextChange(String newText){ return false; }
         });
         return true;
     }
 
+    /**
+     * Handle menu option selected
+     * @param item - MenuItem selected
+     * @return false
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
@@ -152,18 +163,21 @@ public class Movies extends AppCompatActivity {
                 break;
             case R.id.movieStats:
                 AlertDialog.Builder statsBuilder = new AlertDialog.Builder(ctx);
-                statsBuilder.setMessage(R.string.movie_stats_dialog)
-                        .setTitle(R.string.movie_stats_dialog_title)
+                statsBuilder.setTitle(R.string.movie_stats_dialog_title)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //TODO  SQL stats
+
+                                 c = db.rawQuery("select AVG(Runtime), MAX(Runtime), MIN(Runtime) AVG(Year), MAX(Year), MIN(Year) from Movies", null);
+                                 //
+
                             }
                         })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialog, int which){ }
-                        })
+//                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which){ }
+//                        })
                         .show();
                 break;
             case R.id.movieAbout:
@@ -172,14 +186,12 @@ public class Movies extends AppCompatActivity {
                         .setTitle(R.string.movie_dialog_title)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //TODO, about
-                            }
+                            public void onClick(DialogInterface dialog, int which) { }
                         })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-                            @Override
-                            public void onClick(DialogInterface dialog, int which){ }
-                        })
+//                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which){ }
+//                        })
                         .show();
                 break;
             default:
@@ -193,9 +205,12 @@ public class Movies extends AppCompatActivity {
         db.close();
     }
 
+
     public class MovieQuery extends AsyncTask<String, Integer, String> {
+        //User input query
         String queryString;
 
+        //Movie details
         String title="";
         int year;
         String rated;
@@ -205,10 +220,10 @@ public class Movies extends AppCompatActivity {
         String poster;
         Bitmap picture;
 
-        public MovieQuery(String query){
-            this.queryString = query;
-        }
+        //Constructor to pass user query
+        public MovieQuery(String query){ this.queryString = query; }
 
+        //Query http server with user query
         public String doInBackground(String... args) {
             try {
                 String queryUrl = "http://www.omdbapi.com/?t=" + URLEncoder.encode(queryString, "UTF-8") + "&r=xml&apikey=b32928c2";
@@ -229,19 +244,20 @@ public class Movies extends AppCompatActivity {
                                 title = xpp.getAttributeValue(null, "title");
                                 publishProgress(5);
                                 year = Integer.parseInt(xpp.getAttributeValue(null, "year"));
-                                publishProgress(20);
+                                publishProgress(15);
                                 rated = xpp.getAttributeValue(null, "rated");
-                                publishProgress(35);
+                                publishProgress(25);
                                 String run = xpp.getAttributeValue(null, "runtime");
                                 String runTrim = run.substring(0, run.indexOf(" "));
                                 runtime = Integer.parseInt(runTrim);
-                                publishProgress(50);
+                                publishProgress(35);
                                 actors = xpp.getAttributeValue(null, "actors");
-                                publishProgress(65);
+                                publishProgress(45);
                                 plot = xpp.getAttributeValue(null, "plot");
-                                publishProgress(80);
+                                publishProgress(55);
 //                                poster = xpp.getAttributeValue(null, "poster");
-//                                publishProgress(95);
+//                                publishProgress(75);
+                                //track if query returned result
                             } else if (name.equals("error")) {
                                 return "error";
                             }
@@ -267,6 +283,10 @@ public class Movies extends AppCompatActivity {
             movieProgress.setProgress(args[0]);
         }
 
+        /**
+         * Sets XML views to queried data
+         * @param result - string passed from doInBackground
+         */
         public void onPostExecute(String result) {
             TextView titleV = findViewById(R.id.searchTitle);
             TextView yearV = findViewById(R.id.searchYear);
@@ -277,7 +297,7 @@ public class Movies extends AppCompatActivity {
 //            ImageView posterV = findViewById(R.id.searchPoster);
 
             if(result.equals("error")) {
-                Toast.makeText(ctx, "No results found", Toast.LENGTH_LONG).show();
+                Toast.makeText(ctx, R.string.movieToast, Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -294,6 +314,9 @@ public class Movies extends AppCompatActivity {
         }
     }
 
+    /**
+     * Helper class to retrieve picture for Async task
+     */
     static class HttpUtils {
         public static Bitmap getImage(URL url) {
             HttpURLConnection connection = null;
