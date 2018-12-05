@@ -162,8 +162,12 @@ public class Movies extends AppCompatActivity {
                 startActivityForResult(next, 89);
                 break;
             case R.id.movieStats:
-                c = db.rawQuery("select AVG(Runtime), MAX(Runtime), MIN(Runtime), AVG(Year), MAX(Year), MIN(Year) from Movies", null);
-
+//                c = db.rawQuery("select AVG(Runtime), MAX(Runtime), MIN(Runtime), AVG(Year), MAX(Year), MIN(Year) from Movies", null);
+//                c.getColumnName(0);
+//
+////                c.getString(title);
+//
+//                String avgRun = String.valueOf(c.getInt(c.getColumnIndex("AVG(Runtime")));
 
                 AlertDialog.Builder statsBuilder = new AlertDialog.Builder(ctx);
                 statsBuilder.setMessage("")
