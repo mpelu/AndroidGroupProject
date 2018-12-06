@@ -52,6 +52,8 @@ public class Movies extends AppCompatActivity {
     //Database variables
     public SQLiteDatabase db;
     Cursor c;
+    static final int VERSION_NUM = 2;
+    static final String DATABASE_NAME = "FavoriteMovies";
     static final String TABLE_NAME = "Movies";
     static final String KEY_TITLE = "Title";
     static final String KEY_YEAR = "Year";
