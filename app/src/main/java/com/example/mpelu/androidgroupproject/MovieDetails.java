@@ -11,6 +11,10 @@ import android.os.Bundle;
  * Holds information in preparation for fragment class, and loads fragment layout
  */
 public class MovieDetails extends Activity {
+    /**
+     * Instantiate fragment and implement fragment methods
+     * @param savedInstanceState - information passed
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

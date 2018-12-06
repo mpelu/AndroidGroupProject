@@ -40,7 +40,7 @@ import java.net.URLEncoder;
  * Splash page for Movie Activity. Displays results form user query using Async Task inner class
  */
 public class Movies extends AppCompatActivity {
-//    public static final String ACTIVITYNAME = "Movies";
+    //View variables
     Context ctx = this;
     Toolbar movieBar = null;
     ProgressBar movieProgress = null;
@@ -52,8 +52,6 @@ public class Movies extends AppCompatActivity {
     //Database variables
     public SQLiteDatabase db;
     Cursor c;
-    static final int VERSION_NUM = 2;
-    static final String DATABASE_NAME = "FavoriteMovies";
     static final String TABLE_NAME = "Movies";
     static final String KEY_TITLE = "Title";
     static final String KEY_YEAR = "Year";
@@ -62,6 +60,10 @@ public class Movies extends AppCompatActivity {
     static final String KEY_ACTORS = "Actors";
     static final String KEY_PLOT = "Plot";
 
+    /**
+     * Sets toolbar, creates database, gives capacity to add to favourites and pass values to database
+     * @param savedInstanceState - passed bundle from previous activity
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +92,6 @@ public class Movies extends AppCompatActivity {
                 Snackbar.make(addFave, R.string.movieSnack, Snackbar.LENGTH_LONG).show();
             }
         });
-
         movieProgress = findViewById(R.id.movieProgress);
         movieProgress.setVisibility(View.VISIBLE);
     }
@@ -159,13 +160,18 @@ public class Movies extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Finish activity and close database
+     */
     @Override
     protected void onDestroy(){
         super.onDestroy();
         db.close();
     }
 
-
+    /**
+     * Inner Async Task class used to handle user queries
+     */
     public class MovieQuery extends AsyncTask<String, Integer, String> {
         //User input query
         String queryString;
@@ -238,6 +244,10 @@ public class Movies extends AppCompatActivity {
             return "finished";
         }
 
+        /**
+         * Updates progress bar
+         * @param args - progress bar value
+         */
         public void onProgressUpdate(Integer... args) {
             movieProgress.setVisibility(View.VISIBLE);
             movieProgress.setProgress(args[0]);
@@ -278,6 +288,11 @@ public class Movies extends AppCompatActivity {
      * Helper class to retrieve picture for Async task
      */
     static class HttpUtils {
+        /**
+         * Returns movie poster
+         * @param url - poster URL
+         * @return - movie poster
+         */
         public static Bitmap getImage(URL url) {
             HttpURLConnection connection = null;
             try {
@@ -297,6 +312,11 @@ public class Movies extends AppCompatActivity {
             }
         }
 
+        /**
+         * Returns movie poster
+         * @param urlString - poster URL in string format
+         * @return - movie poster
+         */
         public static Bitmap getImage(String urlString) {
             try {
                 URL url = new URL(urlString);
