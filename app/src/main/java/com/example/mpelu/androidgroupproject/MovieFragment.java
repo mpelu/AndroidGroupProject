@@ -44,7 +44,6 @@ public class MovieFragment extends Fragment {
 
 
         Button delete = screen.findViewById(R.id.deleteMovie);
-
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,11 +54,8 @@ public class MovieFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
         return screen;
     }
 
-    public void onAttach(Activity context){
-        super.onAttach(context);
-    }
+    public void onAttach(Activity context){ super.onAttach(context); }
 }

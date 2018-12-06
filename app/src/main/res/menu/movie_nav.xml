@@ -13,20 +13,18 @@
     <item
         android:id="@+id/faves"
         android:title="@string/movieFaves"
-        app:showAsAction="always"
+        app:showAsAction="collapseActionView"
         android:orderInCategory="150" />
 
     <item android:id="@+id/movieAbout"
         android:title="@string/aboutMovies"
-        app:showAsAction="always"
+        app:showAsAction="collapseActionView"
         android:orderInCategory="200" />
 
     <item
         android:id="@+id/movieStats"
         android:title="@string/movieData"
         app:showAsAction="collapseActionView"
-        android:orderInCategory="250"  />
-
-
+        android:orderInCategory="250" />
 
 </menu>

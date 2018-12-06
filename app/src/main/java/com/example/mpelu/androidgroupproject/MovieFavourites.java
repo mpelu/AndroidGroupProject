@@ -14,12 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author mpelu
@@ -37,12 +35,12 @@ public class MovieFavourites extends AppCompatActivity {
     //Database variables
     Cursor c;
     public SQLiteDatabase db;
-    static final int VERSION_NUM = 3;
-    static final String DATABASE_NAME = "FavoriteMovies";
+//    static final int VERSION_NUM = 3;
+//    static final String DATABASE_NAME = "FavoriteMovies";
     static final String TABLE_NAME = "Movies";
 //    static final String KEY_ID = "ID";
-    static final String KEY_TITLE = "Title";
-    static final String KEY_YEAR = "Year";
+//    static final String KEY_TITLE = "Title";
+//    static final String KEY_YEAR = "Year";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,25 +116,18 @@ public class MovieFavourites extends AppCompatActivity {
             db.delete(TABLE_NAME, "_id" + " = " + id, null);
             movieArray.remove(pos);
             mAdapter.notifyDataSetChanged();
-
         } catch(Exception e){
             Log.i(ACTIVITY_NAME, "Exception thrown");
         }
     }
 
     public class MovieAdapter extends ArrayAdapter<String>{
-        public MovieAdapter(Context context) {
-            super(context, 0);
-        }
+        public MovieAdapter(Context context) {  super(context, 0);  }
 
         @Override
-        public int getCount() {
-            return movieArray.size();
-        }
+        public int getCount() { return movieArray.size(); }
 
-        public String getItem(int position){
-            return movieArray.get(position);
-        }
+        public String getItem(int position){ return movieArray.get(position); }
 
         @NonNull
         @Override
@@ -153,10 +144,6 @@ public class MovieFavourites extends AppCompatActivity {
         public long getItemId(int position){
             c.moveToPosition(position);
             return position;
-
-//            c.moveToPosition(position);
-//            return c.getInt(c.getColumnIndex("_id")); //TODO IllegalStateException couldn't read row 0, col -1 from CursorWindow
-//                                                                    //TODO make sure cursor is initialized correctly before accessing data from it
         }
     }
 }

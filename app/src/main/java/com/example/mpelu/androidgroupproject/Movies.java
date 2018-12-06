@@ -28,11 +28,6 @@ import android.support.v7.widget.Toolbar;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -45,19 +40,11 @@ import java.net.URLEncoder;
  * Splash page for Movie Activity. Displays results form user query using Async Task inner class
  */
 public class Movies extends AppCompatActivity {
-    public static final String ACTIVITY_NAME = "Movies";
+//    public static final String ACTIVITYNAME = "Movies";
     Context ctx = this;
     Toolbar movieBar = null;
     ProgressBar movieProgress = null;
     Button addFave = null;
-
-//    TextView searchResult;
-//    TextView mYear;
-//    TextView mRated;
-//    TextView mRuntime;
-//    TextView mActors;
-//    TextView mPlot;
-//    ImageView mPoster;
 
     //Async Task object
     MovieQuery mQuery;
@@ -65,8 +52,6 @@ public class Movies extends AppCompatActivity {
     //Database variables
     public SQLiteDatabase db;
     Cursor c;
-    static final int VERSION_NUM = 2;
-    static final String DATABASE_NAME = "FavoriteMovies";
     static final String TABLE_NAME = "Movies";
     static final String KEY_TITLE = "Title";
     static final String KEY_YEAR = "Year";
@@ -98,23 +83,7 @@ public class Movies extends AppCompatActivity {
                     newRow.put(KEY_RUNTIME, mQuery.runtime);
                     newRow.put(KEY_ACTORS, mQuery.actors);
                     newRow.put(KEY_PLOT, mQuery.plot);
-
                     long id = db.insert(TABLE_NAME, "", newRow);
-
-                    //arrayadapter notify dataset changed
-
-//                String newFilename = "picture"+ id + ".png";
-//                FileOutputStream outputStream = null;
-//                try {
-//                    outputStream = openFileOutput(newFilename, Context.MODE_PRIVATE);
-//                    mQuery.picture.compress(Bitmap.CompressFormat.PNG, 80, outputStream); //TODO compress on null object (npe)
-//                    outputStream.flush();
-//                    outputStream.close();
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
                 }
                 Snackbar.make(addFave, R.string.movieSnack, Snackbar.LENGTH_LONG).show();
             }
@@ -163,24 +132,14 @@ public class Movies extends AppCompatActivity {
                 break;
             case R.id.movieStats:
                 c = db.rawQuery("select AVG(Runtime), MAX(Runtime), MIN(Runtime), AVG(Year), MAX(Year), MIN(Year) from Movies", null);
-
-
                 AlertDialog.Builder statsBuilder = new AlertDialog.Builder(ctx);
                 statsBuilder.setMessage("")
                         .setTitle(R.string.movie_stats_dialog_title)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                //TODO  SQL stats
-
-
-
                             }
                         })
-//                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which){ }
-//                        })
                         .show();
                 break;
             case R.id.movieAbout:
@@ -191,10 +150,6 @@ public class Movies extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) { }
                         })
-//                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which){ }
-//                        })
                         .show();
                 break;
             default:
