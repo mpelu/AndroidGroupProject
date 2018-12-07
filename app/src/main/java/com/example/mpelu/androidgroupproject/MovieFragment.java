@@ -10,9 +10,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+/**
+ * @author mpelu
+ * @version 1.0
+ * Inflates and displays fragment
+ */
 public class MovieFragment extends Fragment {
-
-    //view, need to override onbackbutton method
+    /**
+     * Displays movie details passed in bundle, gives ability to delete movie from favourites and finish activity
+     * @param inflater - inflates Fragment view
+     * @param container - ViewGroup to fill
+     * @param savedInstanceState - information passed
+     * @return - Fragment view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
@@ -42,9 +52,7 @@ public class MovieFragment extends Fragment {
         actors.setText(passedActors);
         plot.setText(passedPlot);
 
-
         Button delete = screen.findViewById(R.id.deleteMovie);
-
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,11 +63,12 @@ public class MovieFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
         return screen;
     }
 
-    public void onAttach(Activity context){
-        super.onAttach(context);
-    }
+    /**
+     * Attaches to activity
+     * @param context - Activity
+     */
+    public void onAttach(Activity context){ super.onAttach(context); }
 }

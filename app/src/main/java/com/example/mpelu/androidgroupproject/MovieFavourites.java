@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,12 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author mpelu
@@ -27,6 +23,7 @@ import java.util.List;
  * List of MovieFavourites. Uses ArrayAdapter inner class to display abridged movie entry
  */
 public class MovieFavourites extends AppCompatActivity {
+    //activity name
     public static final String ACTIVITY_NAME = "MovieFavourites";
 
     //ArrayAdapter variables
@@ -37,13 +34,12 @@ public class MovieFavourites extends AppCompatActivity {
     //Database variables
     Cursor c;
     public SQLiteDatabase db;
-    static final int VERSION_NUM = 3;
-    static final String DATABASE_NAME = "FavoriteMovies";
     static final String TABLE_NAME = "Movies";
-//    static final String KEY_ID = "ID";
-    static final String KEY_TITLE = "Title";
-    static final String KEY_YEAR = "Year";
 
+    /**
+     * Creates database opener and prepares information to be passed to fragment when list item is clicked
+     * @param savedInstanceState - passed information
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +47,7 @@ public class MovieFavourites extends AppCompatActivity {
 
         //initialize database
         MovieDatabaseHelper dbHelp = new MovieDatabaseHelper(this);
-        db = dbHelp.getReadableDatabase();
+        db = dbHelp.getWritableDatabase();
         c = db.rawQuery("SELECT _id, Title, Year, Rated, Runtime, Actors, Plot from Movies", null);
 
         //get column index for favourites list (and then fragment)
@@ -118,29 +114,37 @@ public class MovieFavourites extends AppCompatActivity {
             db.delete(TABLE_NAME, "_id" + " = " + id, null);
             movieArray.remove(pos);
             mAdapter.notifyDataSetChanged();
-
         } catch(Exception e){
             Log.i(ACTIVITY_NAME, "Exception thrown");
         }
     }
 
+    /**
+     * Inner Array Adapter class allows manipulation of listview
+     */
     public class MovieAdapter extends ArrayAdapter<String>{
-        public MovieAdapter(Context context) {
-            super(context, 0);
-        }
+        public MovieAdapter(Context context) {  super(context, 0);  }
 
+        /**
+         * @return - number of rows in array
+         */
         @Override
-        public int getCount() {
-            return movieArray.size();
-        }
+        public int getCount() { return movieArray.size(); }
 
-        public String getItem(int position){
-            return movieArray.get(position);
-        }
+        /**
+         * @param position - position index
+         * @return - item at position index
+         */
+        public String getItem(int position){ return movieArray.get(position); }
 
-        @NonNull
+        /**
+         * @param position - position of item
+         * @param convertView - view to be converted
+         * @param parent - parent view
+         * @return - array view
+         */
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(int position, View convertView, ViewGroup parent) {
             LayoutInflater inflater = MovieFavourites.this.getLayoutInflater();
             View result = inflater.inflate(R.layout.movie_favourites_list, null);
 
@@ -150,13 +154,13 @@ public class MovieFavourites extends AppCompatActivity {
             return result;
         }
 
+        /**
+         * @param position - index
+         * @return - position of item
+         */
         public long getItemId(int position){
             c.moveToPosition(position);
             return position;
-
-//            c.moveToPosition(position);
-//            return c.getInt(c.getColumnIndex("_id")); //TODO IllegalStateException couldn't read row 0, col -1 from CursorWindow
-//                                                                    //TODO make sure cursor is initialized correctly before accessing data from it
         }
     }
 }

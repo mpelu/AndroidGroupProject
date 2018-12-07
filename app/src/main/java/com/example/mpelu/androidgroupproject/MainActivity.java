@@ -7,7 +7,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+/**
+ * Main page for application, user can access activities through graphical tool bar
+ * @author Tristan Duck, Madeleine Peluso, Patricia Moshe, Justin Gamache
+ * @version 1.0
+ */
 public class MainActivity extends AppCompatActivity {
+    /**
+     * Create activity, find toolbar
+     * @param savedInstanceState - passed information
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,12 +25,22 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(projBar);
     }
 
+    /**
+     * Inflate menu navigation
+     * @param menu - menu resource file
+     * @return - successful compile
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.proj_nav, menu);
         return true;
     }
 
+    /**
+     * Handle user's selected option item
+     * @param item - menu item to be selected
+     * @return - if built-in handling
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
@@ -34,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(movies, 200);
                 break;
             case R.id.Nutrition:
-                //Intent nutrition = new Intent(MainActivity.this, NutritionDatabase.class);
-                //startActivityForResult(nutrition, 300);
+               //Intent nutrition = new Intent(MainActivity.this, NutritionDatabase.class);
+               //startActivityForResult(nutrition, 300);
                 break;
             case R.id.OCTranspo:
                 //Intent octranspo = new Intent(MainActivity.this, OcTranspo.class);
@@ -45,6 +64,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
 }
